@@ -21,13 +21,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingBlocks.Web", "Buldi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Planner", "Planner", "{031E07CA-7FA1-4E98-A763-4F31D3BD191B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Planner.Web", "Services\Planner.Web\Planner.Web.csproj", "{E2F271F3-ABB5-40F9-B68F-02AB2996AB68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Planner.Web", "Services\Planner\Planner.Web\Planner.Web.csproj", "{E2F271F3-ABB5-40F9-B68F-02AB2996AB68}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Planner.Domain", "Services\Planner.Domain\Planner.Domain.csproj", "{00190DD3-D5A2-48F4-85C8-CE28672EE741}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Planner.Domain", "Services\Planner\Planner.Domain\Planner.Domain.csproj", "{00190DD3-D5A2-48F4-85C8-CE28672EE741}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Planner.Application", "Services\Planner.Application\Planner.Application.csproj", "{1FD6F8C4-CE44-41A9-BE99-3BE41D28E28E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Planner.Application", "Services\Planner\Planner.Application\Planner.Application.csproj", "{1FD6F8C4-CE44-41A9-BE99-3BE41D28E28E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Planner.Persistent", "Services\Planner.Persistent\Planner.Persistent.csproj", "{D28A77D5-AEEC-4A24-87D7-B2F1858923B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Planner.Persistent", "Services\Planner\Planner.Persistent\Planner.Persistent.csproj", "{D28A77D5-AEEC-4A24-87D7-B2F1858923B4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{EE9702B8-FFD1-4ADB-B373-1393190E1D73}"
 EndProject

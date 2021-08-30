@@ -1,4 +1,5 @@
-﻿using BuildingBlocks.Web.Responses;
+﻿using BuildingBlocks.Common.Models;
+using BuildingBlocks.Web.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ using Planner.Application.UseCases.Planner.Commands.Update;
 using Planner.Application.UseCases.Planner.Commands.UpdateStatus;
 using Planner.Application.UseCases.Planner.Queries;
 using Planner.Application.UseCases.Planner.Queries.Get;
+using Planner.Application.UseCases.Planner.Queries.GetByQuery;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading;
@@ -42,6 +44,15 @@ namespace Planner.Web.Controllers
         public async Task<PlannerView> GetAsync([FromRoute, Required] Guid id, CancellationToken cancellationToken)
         {
             return await _mediator.Send(new GetPlannerQuery { Id = id }, cancellationToken);
+        }
+
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(QueryResult<PlannerView>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
+        [HttpPost("by-query")]
+        public async Task<QueryResult<PlannerView>> GetAsync([FromBody, Required] GetPlannersQuery query,
+            CancellationToken cancellationToken)
+        {
+            return await _mediator.Send(query, cancellationToken);
         }
 
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(EmptyResponse))]
