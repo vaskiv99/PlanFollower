@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.3" />
+    <PackageReference Include="Mapster" Version="7.2.0" />
+    <PackageReference Include="microsoft.entityframeworkcore" Version="5.0.9" />
+    <PackageReference Include="npgsql.entityframeworkcore.postgresql" Version="5.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Planner.Domain\Planner.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Common\Mappers\" />
+    <Folder Include="UseCases\Goal\Commands\Remove\" />
+    <Folder Include="UseCases\Goal\DomainEventHandler\" />
+    <Folder Include="UseCases\Planner\Commands\Create\" />
+  </ItemGroup>
+
+</Project>

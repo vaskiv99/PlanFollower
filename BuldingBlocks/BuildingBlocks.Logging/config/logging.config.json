@@ -1,0 +1,48 @@
+{
+  "Serilog": {
+    "Using": [
+      "Serilog.Sinks.ColoredConsole",
+      "Serilog.Sinks.Async",
+      "Serilog.Sinks.File",
+      "Serilog.Sinks.Http"
+    ],
+    "MinimumLevel": {
+      "Default": "Information",
+      "Override": {
+        "Microsoft": "Warning"
+      }
+    },
+    "WriteTo": [
+      {
+        "Name": "ColoredConsole",
+        "Args": {
+          "restrictedToMinimumLevel": "Information",
+          "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level}] [{SourceContext}] {Message}{NewLine}{Exception}"
+        }
+      },
+      //{
+      //  "Name": "Http",
+      //  "Args": {
+      //    "requestUri": "http://logstash:8080",
+      //    "restrictedToMinimumLevel": "Information",
+      //    "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level}] [{SourceContext}] {Message}{NewLine}{Exception}"
+      //  }
+      //},
+      {
+        "Name": "Async",
+        "Args": {
+          "configure": [
+            {
+              "Name": "RollingFile",
+              "Args": {
+                "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level}] [{SourceContext}] {Message}{NewLine}{Exception}",
+                "pathFormat": "./logs/log-{Date}.log"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "Enrich": [ "FromLogContext" ]
+  }
+}
