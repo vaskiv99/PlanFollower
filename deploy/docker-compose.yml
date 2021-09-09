@@ -1,0 +1,35 @@
+version: '3.7'
+
+services:
+    planner.api:
+        image: vaskiv99/planner.api:0.0.1
+        ports: 
+            - "5000:80"
+        networks:  
+            - planner-system
+        volumes:
+            - ./logs-data:/app/logs
+        depends_on:
+            - postgres
+        environment: 
+            ConnectionStrings__Default: 'Host=postgres;Port=5432;Database=planner;User Id=postgres;Password=postgres;Pooling=true;'
+
+    postgres:
+        image: postgres:latest
+        restart: always
+        environment: 
+          - POSTGRES_USER=postgres
+          - POSTGRES_PASSWORD=postgres
+        logging:
+          options:
+            max-size: 10m
+            max-file: "3"
+        ports:
+          - '5432:5432'
+        networks:  
+            - planner-system
+        volumes:
+          - ./postgres-data:/var/lib/postgresql/data
+
+networks:
+    planner-system:
