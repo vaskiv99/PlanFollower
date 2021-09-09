@@ -11,7 +11,7 @@ on:
       - develop    
 
 jobs:
-  .net-process:
+  net-process:
 
     runs-on: ubuntu-latest
 
