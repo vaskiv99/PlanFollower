@@ -19,6 +19,11 @@ namespace BuildingBlocks.Common.Utils
 
         public static IQueryable<T> Paginate<T>(this IQueryable<T> query, IPageQuery dto) where T : class
         {
+            if (dto is null)
+            {
+                return query;
+            }
+
             if (dto.PageSize == 0)
             {
                 return query;
@@ -31,6 +36,8 @@ namespace BuildingBlocks.Common.Utils
 
         public static IEnumerable<T> Paginate<T>(this IEnumerable<T> query, IPageQuery dto) where T : class
         {
+            if (dto is null) return query;
+
             if (dto.PageSize == 0)
             {
                 return query;

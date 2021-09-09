@@ -14,7 +14,11 @@ namespace BuildingBlocks.Web.Host
         protected virtual IWebHostBuilder CreateHostBuilder(string[] args)
         {
             var builder = new WebHostBuilder().UseStartup<TStartup>()
-                .UseKestrel(options => options.AddServerHeader = false)
+                .UseKestrel(options =>
+                {
+                    options.AddServerHeader = false;
+                    options.AllowSynchronousIO = true;
+                })
                 .UseIISIntegration()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .ConfigureAppConfiguration((hostingContext, config) =>

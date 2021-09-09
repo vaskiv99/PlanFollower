@@ -33,6 +33,8 @@ namespace Planner.Persistent
         public DbSet<Domain.AggregatesModel.PlannerAggregate.Entities.Planner> Planners { get; set; }
         public DbSet<PlannerStatusItem> PlannerStatusItems { get; set; }
         public DbSet<Goal> Goals { get; set; }
+        public DbSet<GoalStatusItem> GoalStatusItems { get; set; }
+        public DbSet<Report> Reports { get; set; }
 
         #endregion
 

@@ -32,6 +32,8 @@ namespace Planner.Domain.ValueObjects
             yield return End;
         }
 
+        public bool Contains(DateTime date) => Start <= date && End >= date;
+
         public bool IsSubDuration(Duration subDuration) => Start <= subDuration.Start && End >= subDuration.End;
     }
 }

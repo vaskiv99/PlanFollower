@@ -25,6 +25,14 @@ namespace Planner.Persistent.EntityConfiguration
             builder.HasOne<Domain.AggregatesModel.PlannerAggregate.Entities.Planner>()
                 .WithMany()
                 .HasForeignKey(x => x.PlannerId);
+
+            builder.HasMany(x => x.Items)
+                .WithOne()
+                .HasForeignKey(x => x.GoalId);
+
+            builder.HasMany(x => x.Reports)
+                .WithOne()
+                .HasForeignKey(x => x.GoalId);
         }
     }
 }

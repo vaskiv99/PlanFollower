@@ -11,10 +11,14 @@ namespace BuildingBlocks.Domain.Events.Implementation
         private readonly IMediator _mediator;
         private readonly IExternalEventBus _externalEventBus;
 
-        public EventBus(IMediator mediator, IExternalEventBus externalEventBus)
+        public EventBus(IMediator mediator)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-            _externalEventBus = externalEventBus;
+        }
+
+        public EventBus(IMediator mediator, IExternalEventBus externalEventBus) : this(mediator)
+        {
+            _externalEventBus = externalEventBus ?? throw new ArgumentNullException(nameof(externalEventBus));
         }
 
         public async Task PublishAsync(IEvent[] events, CancellationToken cancellationToken)

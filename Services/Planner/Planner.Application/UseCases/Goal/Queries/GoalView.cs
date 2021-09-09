@@ -1,5 +1,6 @@
 ﻿using Planner.Domain.AggregatesModel.GoalAggregate.Enums;
 using Planner.Domain.AggregatesModel.GoalAggregate.ValueObjects;
+using Planner.Domain.Enum;
 using Planner.Domain.ValueObjects;
 using System;
 
@@ -24,5 +25,9 @@ namespace Planner.Application.UseCases.Goal.Queries
         public TrackingType TrackingType { get; set; }
 
         public EqualType EqualType { get; set; }
+
+        public PlannerStatus Status { get; set; }
+
+        public DateTime CreatedAt { get; set; }
     }
 }

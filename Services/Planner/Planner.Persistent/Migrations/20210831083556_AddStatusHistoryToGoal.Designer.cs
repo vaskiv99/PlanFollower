@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Planner.Domain.AggregatesModel.GoalAggregate.Enums;
@@ -11,9 +12,10 @@ using Planner.Persistent;
 namespace Planner.Persistent.Migrations
 {
     [DbContext(typeof(PlannerDbContext))]
-    partial class PlannerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210831083556_AddStatusHistoryToGoal")]
+    partial class AddStatusHistoryToGoal
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -109,42 +111,6 @@ namespace Planner.Persistent.Migrations
                         .HasDatabaseName("ix_goal_status_items_goal_id");
 
                     b.ToTable("goal_status_items");
-                });
-
-            modelBuilder.Entity("Planner.Domain.AggregatesModel.GoalAggregate.Entities.Report", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("date");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("text")
-                        .HasColumnName("description");
-
-                    b.Property<Guid>("GoalId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("goal_id");
-
-                    b.Property<TrackingType>("TrackingType")
-                        .HasColumnType("tracking_type")
-                        .HasColumnName("tracking_type");
-
-                    b.Property<decimal>("ValueOfProgress")
-                        .HasColumnType("numeric")
-                        .HasColumnName("value_of_progress");
-
-                    b.HasKey("Id")
-                        .HasName("pk_goal_reports");
-
-                    b.HasIndex("GoalId")
-                        .HasDatabaseName("ix_goal_reports_goal_id");
-
-                    b.ToTable("goal_reports");
                 });
 
             modelBuilder.Entity("Planner.Domain.AggregatesModel.PlannerAggregate.Entities.Planner", b =>
@@ -259,16 +225,6 @@ namespace Planner.Persistent.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Planner.Domain.AggregatesModel.GoalAggregate.Entities.Report", b =>
-                {
-                    b.HasOne("Planner.Domain.AggregatesModel.GoalAggregate.Entities.Goal", null)
-                        .WithMany("Reports")
-                        .HasForeignKey("GoalId")
-                        .HasConstraintName("fk_goal_reports_planner_goals_goal_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Planner.Domain.AggregatesModel.PlannerAggregate.Entities.Planner", b =>
                 {
                     b.OwnsOne("Planner.Domain.ValueObjects.Duration", "Duration", b1 =>
@@ -311,8 +267,6 @@ namespace Planner.Persistent.Migrations
             modelBuilder.Entity("Planner.Domain.AggregatesModel.GoalAggregate.Entities.Goal", b =>
                 {
                     b.Navigation("Items");
-
-                    b.Navigation("Reports");
                 });
 
             modelBuilder.Entity("Planner.Domain.AggregatesModel.PlannerAggregate.Entities.Planner", b =>

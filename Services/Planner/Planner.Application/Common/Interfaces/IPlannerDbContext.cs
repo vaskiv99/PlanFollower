@@ -18,6 +18,10 @@ namespace Planner.Application.Common.Interfaces
 
         DbSet<Goal> Goals { get; set; }
 
+        DbSet<GoalStatusItem> GoalStatusItems { get; set; }
+
+        DbSet<Report> Reports { get; set; }
+
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 
         DatabaseFacade Database { get; }

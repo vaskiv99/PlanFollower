@@ -17,17 +17,26 @@ namespace Planner.Domain.AggregatesModel.GoalAggregate.ValueObjects
 
         public int CountOfTimes { get; set; }
 
+        public bool IsEmpty { get; set; }
+
         public Frequency(TimePeriod timePeriod, int countOfPeriods = 1, int countOfTimesPerPeriod = 1)
         {
             TimePeriod = timePeriod;
             CountOfPeriods = countOfPeriods;
             CountOfTimes = countOfTimesPerPeriod;
+            IsEmpty = false;
         }
 
         public Frequency() { }
 
         public Frequency(string frequencyString)
         {
+            if (frequencyString == "*")
+            {
+                IsEmpty = true;
+                return;
+            }
+
             var regex = new Regex(RegexFormat, RegexOptions.IgnoreCase);
 
             if (!regex.IsMatch(frequencyString))
@@ -49,6 +58,7 @@ namespace Planner.Domain.AggregatesModel.GoalAggregate.ValueObjects
             yield return TimePeriod;
             yield return CountOfTimes;
             yield return CountOfPeriods;
+            yield return IsEmpty;
         }
     }
 }

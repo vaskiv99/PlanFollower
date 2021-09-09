@@ -31,7 +31,6 @@ namespace Planner.Application.UseCases.Goal.Commands.Create
                 .WithMessage("Abstract goal value is required");
 
             RuleFor(x => x.Frequency)
-                .NotNull()
                 .SetValidator(new FrequencyValidator());
         }
     }

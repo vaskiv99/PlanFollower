@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\BuldingBlocks\BuildingBlocks.Database\BuildingBlocks.Database.csproj" />
+    <ProjectReference Include="..\..\..\BuldingBlocks\BuildingBlocks.Database\BuildingBlocks.Database.csproj" />
     <ProjectReference Include="..\Planner.Application\Planner.Application.csproj" />
   </ItemGroup>
 

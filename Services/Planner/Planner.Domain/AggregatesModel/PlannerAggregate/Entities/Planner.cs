@@ -1,4 +1,5 @@
-﻿using BuildingBlocks.Common.Exceptions;
+﻿
+using BuildingBlocks.Common.Exceptions;
 using BuildingBlocks.Domain.Aggregate;
 using BuildingBlocks.Domain.Entity.Implementation;
 using Planner.Domain.AggregatesModel.PlannerAggregate.Events;
@@ -53,10 +54,12 @@ namespace Planner.Domain.AggregatesModel.PlannerAggregate.Entities
                 return;
             }
 
+            var status = Duration.Start.Date <= DateTime.UtcNow.Date ? PlannerStatus.InProgress : PlannerStatus.PendingStart;
             var @event = new PlannerStatusItemCreatedEvent(
-                PlannerStatus.InProgress,
+                status,
                 description ?? "Planner started",
-                DateTime.UtcNow
+                DateTime.UtcNow,
+                Id
             );
 
             Enqueue(@event);
@@ -79,7 +82,8 @@ namespace Planner.Domain.AggregatesModel.PlannerAggregate.Entities
             var @event = new PlannerStatusItemCreatedEvent(
                 PlannerStatus.Postponed,
                 reason,
-                DateTime.UtcNow
+                DateTime.UtcNow,
+                Id
             );
 
             Enqueue(@event);
@@ -102,7 +106,8 @@ namespace Planner.Domain.AggregatesModel.PlannerAggregate.Entities
             var @event = new PlannerStatusItemCreatedEvent(
                 PlannerStatus.Stopped,
                 reason,
-                DateTime.UtcNow
+                DateTime.UtcNow,
+                Id
             );
 
             Enqueue(@event);
@@ -114,7 +119,8 @@ namespace Planner.Domain.AggregatesModel.PlannerAggregate.Entities
             var @event = new PlannerStatusItemCreatedEvent(
                 PlannerStatus.Completed,
                 "The planner's end date is expired. Planner completed.",
-                DateTime.UtcNow
+                DateTime.UtcNow,
+                Id
             );
 
             Enqueue(@event);
@@ -131,7 +137,7 @@ namespace Planner.Domain.AggregatesModel.PlannerAggregate.Entities
                 return;
             }
 
-            if (CurrentStatus == PlannerStatus.Stopped || CurrentStatus == PlannerStatus.Completed)
+            if (CurrentStatus is PlannerStatus.Stopped or PlannerStatus.Completed)
             {
                 throw new DomainException(
                     "Update planner duration is unavailable when planner is completed or stopped");
@@ -144,7 +150,7 @@ namespace Planner.Domain.AggregatesModel.PlannerAggregate.Entities
                 throw new DomainException("Update planner start date is unavailable when planner is in progress");
             }
 
-            if (duration.End.Date < Duration.End.Date && CurrentStatus is PlannerStatus.Completed or PlannerStatus.Stopped)
+            if (duration.End.Date < Duration.End.Date && CurrentStatus is not PlannerStatus.PendingStart)
             {
                 throw new DomainException("Update planner end date is unavailable when planner is in progress");
             }

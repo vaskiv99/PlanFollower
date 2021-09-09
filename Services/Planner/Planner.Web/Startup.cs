@@ -1,10 +1,12 @@
 using BuildingBlocks.Domain;
+using BuildingBlocks.Scheduler.Quartz;
 using BuildingBlocks.Web.Startup;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Planner.Application;
 using Planner.Persistent;
+using Planner.Web.JobConfiguration;
 using Planner.Web.StartupConfiguration;
 using DependencyInjection = Planner.Application.DependencyInjection;
 
@@ -23,8 +25,8 @@ namespace Planner.Web
             services.ConfigureResponseCompressionService()
                 .ConfigurePersistent(Configuration)
                 .ConfigureBaseDomainServices()
-                .ConfigureApplication();
-
+                .ConfigureApplication()
+                .AddQuartzServices(new PlannerJobCollection());
         }
 
         public override void Configure(IApplicationBuilder app)
@@ -33,6 +35,7 @@ namespace Planner.Web
 
             DependencyInjection.InitializeApplicationMappers();
 
+            app.ConfigureQuartzUi();
             app.UsePersistent();
 
             app.UseRouting();
