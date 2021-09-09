@@ -1,10 +1,14 @@
-name: .NET
+name: .NET workflows
 
 on:
   push:
-    branches: [ master ]
+    branches: 
+      - master 
+      - develop
   pull_request:
-    branches: [ master ]
+    branches: 
+      - master 
+      - develop    
 
 jobs:
   build:
