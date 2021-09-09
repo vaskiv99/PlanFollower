@@ -11,7 +11,7 @@ on:
       - develop    
 
 jobs:
-  build:
+  build-app:
 
     runs-on: ubuntu-latest
 
@@ -27,3 +27,15 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+      
+  dockerizing:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Planner API image
+
+      env: 
+       TAG: ${{ secrets.PLANNER_TAG }}
+      run: docker build -f "Services/Planner/Planner.Web/Dockerfile" -t $TAG .
