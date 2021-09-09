@@ -1,4 +1,4 @@
-name: .NET workflows
+name: .NET workflow
 
 on:
   push:
@@ -11,7 +11,7 @@ on:
       - develop    
 
 jobs:
-  net-process:
+  build:
 
     runs-on: ubuntu-latest
 
