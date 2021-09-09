@@ -20,6 +20,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the Planner API image
 
-      env: # Or as an environment variable
+      env: 
        TAG: ${{ secrets.PLANNER_TAG }}
       run: docker build -f "Services/Planner/Planner.Web/Dockerfile" -t $TAG .
