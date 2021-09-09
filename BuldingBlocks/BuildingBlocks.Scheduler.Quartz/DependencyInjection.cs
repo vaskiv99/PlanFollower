@@ -12,6 +12,7 @@ namespace BuildingBlocks.Scheduler.Quartz
         {
             services.AddQuartz(q =>
             {
+                sas
                 q.UseMicrosoftDependencyInjectionJobFactory();
 
                 var jobs = collection.EnumerateJobs();
