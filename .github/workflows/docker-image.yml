@@ -22,4 +22,4 @@ jobs:
 
       env: # Or as an environment variable
        TAG: ${{ secrets.PLANNER_TAG }}
-      run: docker build -f "Services/Planner/Planner.Web/Dockerfile" -t "$TAG" .
+      run: docker build -f "Services/Planner/Planner.Web/Dockerfile" -t $TAG .
