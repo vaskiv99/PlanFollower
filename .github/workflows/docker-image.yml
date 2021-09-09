@@ -19,4 +19,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Planner API image
-      run: echo ${{ secrets.PLANNER_TAG }}
+      run: docker build -f "Services/Planner/Planner.Web/Dockerfile" -t ${{ secrets.PLANNER_TAG }} .
