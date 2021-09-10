@@ -44,6 +44,6 @@ jobs:
             docker build -f "Services/Planner/Planner.Web/Dockerfile" -t $PROD_TAG .
           fi
 
-          if [[ "${{github.base_ref}}" == "production" || "${{github.ref}}" == "refs/heads/production" ]]; then
+          if [[ "${{github.base_ref}}" == "develop" || "${{github.ref}}" == "refs/heads/develop" ]]; then
             docker build -f "Services/Planner/Planner.Web/Dockerfile" -t $DEV_TAG .
           fi
