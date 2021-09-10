@@ -31,23 +31,19 @@ jobs:
   dockerizing:
 
     runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@v2
-    
-    - name: Set image tag for dev
-      if: endsWith(github.ref, '/develop')
-      run: |
-        echo "::set-env name=TAG::${{ secrets.PLANNER_DEV_TAG }}"
-
-    - name: Set image tag for prod
-      if: endsWith(github.ref, '/master')
-      run: |
-        echo "::set-env name=TAG::${{ secrets.PLANNER_PROD_TAG }}"
-
-    - name: Show tag
-
-      run: echo $TAG
-      
     - name: Build the Planner API image
 
-      run: docker build -f "Services/Planner/Planner.Web/Dockerfile" -t $TAG .
+      env: 
+       PROD_TAG: ${{ secrets.PLANNER_PROD_TAG }}
+       DEV_TAG: ${{ secrets.PLANNER_DEV_TAG }}
+      run: |
+          if [[ "${{github.base_ref}}" == "master" || "${{github.ref}}" == "refs/heads/master" ]]; then
+            docker build -f "Services/Planner/Planner.Web/Dockerfile" -t $PROD_TAG .
+          fi
+
+          if [[ "${{github.base_ref}}" == "production" || "${{github.ref}}" == "refs/heads/production" ]]; then
+            docker build -f "Services/Planner/Planner.Web/Dockerfile" -t $DEV_TAG .
+          fi
