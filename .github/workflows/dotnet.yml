@@ -40,7 +40,7 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - uses: actions/checkout@v2
-    - name: Build the Planner API image
+    - name: Build the Planner API image and push
 
       env: 
        PROD_TAG: ${{ secrets.PLANNER_PROD_TAG }}
@@ -48,8 +48,10 @@ jobs:
       run: |
           if [[ "${{github.base_ref}}" == "master" || "${{github.ref}}" == "refs/heads/master" ]]; then
             docker build -f "Services/Planner/Planner.Web/Dockerfile" -t $PROD_TAG .
+            docker push $PROD_TAG
           fi
 
           if [[ "${{github.base_ref}}" == "develop" || "${{github.ref}}" == "refs/heads/develop" ]]; then
             docker build -f "Services/Planner/Planner.Web/Dockerfile" -t $DEV_TAG .
+            docker push $DEV_TAG
           fi
